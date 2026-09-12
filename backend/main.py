@@ -12,7 +12,7 @@ from modules.object_detection import run_object_detection
 from modules.land_cover import run_land_cover
 from modules.spectral import run_spectral_analysis
 
-app = FastAPI(title="SatQuery AI API")
+app = FastAPI(title="Vanguard Vision API")
 
 app.add_middleware(
     CORSMiddleware,
