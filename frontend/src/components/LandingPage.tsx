@@ -68,7 +68,7 @@ export default function LandingPage({ onLaunch }: Props) {
             <a href="#capabilities" className="hover:text-white transition-colors">Capabilities</a>
           </div>
           <button 
-            onClick={onLaunch}
+            onClick={() => onLaunch()}
             className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full font-medium transition-all animate-pulse-glow"
           >
             Launch App
@@ -158,7 +158,7 @@ export default function LandingPage({ onLaunch }: Props) {
 
         {/* Floating Stats/Features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-32" id="services">
-          <div className="animate-fade-up delay-400 p-8 rounded-3xl bg-zinc-900/40 border border-white/10 backdrop-blur-md hover:-translate-y-2 transition-transform cursor-pointer group" onClick={onLaunch}>
+          <div className="animate-fade-up delay-400 p-8 rounded-3xl bg-zinc-900/40 border border-white/10 backdrop-blur-md hover:-translate-y-2 transition-transform cursor-pointer group" onClick={() => onLaunch()}>
             <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
               <Database className="w-8 h-8 text-emerald-400" />
             </div>
@@ -166,7 +166,7 @@ export default function LandingPage({ onLaunch }: Props) {
             <p className="text-slate-400 leading-relaxed">Process ultra-high resolution drone and satellite imagery with precision. Instantly locate buildings, vehicles, and extract structural data.</p>
           </div>
           
-          <div className="animate-fade-up delay-500 p-8 rounded-3xl bg-zinc-900/40 border border-white/10 backdrop-blur-md hover:-translate-y-2 transition-transform cursor-pointer group" onClick={onLaunch}>
+          <div className="animate-fade-up delay-500 p-8 rounded-3xl bg-zinc-900/40 border border-white/10 backdrop-blur-md hover:-translate-y-2 transition-transform cursor-pointer group" onClick={() => onLaunch()}>
             <div className="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center mb-6 group-hover:bg-green-500/20 transition-colors">
               <Activity className="w-8 h-8 text-green-400" />
             </div>
@@ -174,7 +174,7 @@ export default function LandingPage({ onLaunch }: Props) {
             <p className="text-slate-400 leading-relaxed">Chat with your map. Ask natural language questions about your geospatial data and get instant, highlightable answers overlaid on your imagery.</p>
           </div>
           
-          <div className="animate-fade-up delay-[600ms] p-8 rounded-3xl bg-zinc-900/40 border border-white/10 backdrop-blur-md hover:-translate-y-2 transition-transform cursor-pointer group" onClick={onLaunch}>
+          <div className="animate-fade-up delay-[600ms] p-8 rounded-3xl bg-zinc-900/40 border border-white/10 backdrop-blur-md hover:-translate-y-2 transition-transform cursor-pointer group" onClick={() => onLaunch()}>
             <div className="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center mb-6 group-hover:bg-green-500/20 transition-colors">
               <Globe className="w-8 h-8 text-green-500" />
             </div>
@@ -223,24 +223,24 @@ export default function LandingPage({ onLaunch }: Props) {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-6">
-              <div onClick={onLaunch} className="cursor-pointer hover:-translate-x-2 transition-transform animate-fade-up p-6 rounded-2xl bg-gradient-to-r from-green-900/20 to-transparent border-l-4 border-emerald-500">
+              <div onClick={() => onLaunch()} className="cursor-pointer hover:-translate-x-2 transition-transform animate-fade-up p-6 rounded-2xl bg-gradient-to-r from-green-900/20 to-transparent border-l-4 border-emerald-500">
                 <h3 className="text-xl font-bold text-emerald-400 mb-2">1. Image Ingestion & Processing</h3>
                 <p className="text-slate-400">Support for standard optical formats (JPG/PNG), drone photography, and EXIF metadata extraction to instantly center your analysis on a live global map.</p>
               </div>
               
-              <div onClick={onLaunch} className="cursor-pointer hover:-translate-x-2 transition-transform animate-fade-up delay-100 p-6 rounded-2xl bg-gradient-to-r from-green-900/20 to-transparent border-l-4 border-green-400">
+              <div onClick={() => onLaunch()} className="cursor-pointer hover:-translate-x-2 transition-transform animate-fade-up delay-100 p-6 rounded-2xl bg-gradient-to-r from-green-900/20 to-transparent border-l-4 border-green-400">
                 <h3 className="text-xl font-bold text-green-400 mb-2">2. Visual Question Answering (VQA)</h3>
                 <p className="text-slate-400">Ask questions like "How many buildings are here?" or "What color is this structure?" and receive grounded, explainable answers with dynamic bounding boxes drawn instantly on the image.</p>
               </div>
             </div>
             
             <div className="space-y-6">
-              <div onClick={onLaunch} className="cursor-pointer hover:translate-x-2 transition-transform animate-fade-up delay-200 p-6 rounded-2xl bg-gradient-to-r from-emerald-900/20 to-transparent border-l-4 border-green-500">
+              <div onClick={() => onLaunch()} className="cursor-pointer hover:translate-x-2 transition-transform animate-fade-up delay-200 p-6 rounded-2xl bg-gradient-to-r from-emerald-900/20 to-transparent border-l-4 border-green-500">
                 <h3 className="text-xl font-bold text-green-500 mb-2">3. Zero-Shot Object Detection</h3>
                 <p className="text-slate-400">Powered by OWL-ViT, detect unseen objects (buildings, vehicles, ships) on the fly without custom training. We automatically extract geometric heuristics like floor count and color profiles.</p>
               </div>
               
-              <div onClick={onLaunch} className="cursor-pointer hover:translate-x-2 transition-transform animate-fade-up delay-300 p-6 rounded-2xl bg-gradient-to-r from-lime-900/20 to-transparent border-l-4 border-lime-500">
+              <div onClick={() => onLaunch()} className="cursor-pointer hover:translate-x-2 transition-transform animate-fade-up delay-300 p-6 rounded-2xl bg-gradient-to-r from-lime-900/20 to-transparent border-l-4 border-lime-500">
                 <h3 className="text-xl font-bold text-lime-500 mb-2">4. Land Cover Segmentation</h3>
                 <p className="text-slate-400">Utilize CLIPSeg to instantly generate classification masks for Urban Areas, Water Bodies, and Vegetation, rendered as interactive SVG polygons with precision confidence scoring.</p>
               </div>

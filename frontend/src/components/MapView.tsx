@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Rectangle, LayersControl, useMap } from 'react-leaflet';
 import { LocateFixed } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
