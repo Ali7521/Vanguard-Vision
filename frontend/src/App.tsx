@@ -170,33 +170,33 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen bg-slate-50 font-sans text-slate-800">
+    <div className="flex flex-col lg:flex-row h-screen bg-slate-50 font-sans text-slate-800 overflow-hidden">
       {/* Sidebar Toolbar */}
-      <div className="w-20 h-full bg-white border-r border-slate-200 flex flex-col items-center py-6 z-20 shadow-sm shrink-0">
-        <div className="text-3xl mb-8">🌍</div>
+      <div className="w-full lg:w-20 h-auto lg:h-full bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-row lg:flex-col items-center py-2 lg:py-6 px-4 lg:px-0 z-20 shadow-sm shrink-0 overflow-x-auto">
+        <div className="text-2xl lg:text-3xl mr-4 lg:mr-0 lg:mb-8 shrink-0">🌍</div>
         <AnalysisToolbar onAction={handleToolbarAction} disabled={!imageId || isAnalyzing} />
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 h-full p-6 flex flex-col min-w-0">
-        <div className="flex justify-between items-center mb-6">
+      <div className="flex-1 h-1/2 lg:h-full p-4 lg:p-6 flex flex-col min-w-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0 mb-4 lg:mb-6 shrink-0">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Vanguard Vision</h1>
-            <p className="text-sm text-slate-500 font-medium mt-1">Interactive Vision-Language Assistant</p>
+            <h1 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">Vanguard Vision</h1>
+            <p className="text-xs md:text-sm text-slate-500 font-medium mt-1">Interactive Vision-Language Assistant</p>
           </div>
           
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-2 md:gap-3 w-full md:w-auto">
             {imageUrl && (
-              <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
+              <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 w-full md:w-auto">
                 <button 
                   onClick={() => setViewMode('image')}
-                  className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-semibold transition-colors ${viewMode === 'image' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-1.5 rounded-md text-sm font-semibold transition-colors ${viewMode === 'image' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   <ImageIcon size={16} /> Image
                 </button>
                 <button 
                   onClick={() => setViewMode('map')}
-                  className={`flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-semibold transition-colors ${viewMode === 'map' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
+                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-1.5 rounded-md text-sm font-semibold transition-colors ${viewMode === 'map' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   <MapIcon size={16} /> Map
                 </button>
@@ -204,16 +204,16 @@ function App() {
             )}
             <button 
               onClick={handleExport}
-              className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-semibold shadow-sm hover:bg-slate-50 transition-colors"
+              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-semibold shadow-sm hover:bg-slate-50 transition-colors"
             >
               <Download size={16} /> Export
             </button>
           </div>
         </div>
         
-        <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col relative z-0">
+        <div className="flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col relative z-0 min-h-0">
           {!imageUrl ? (
-            <div className="flex-1 flex items-center justify-center bg-slate-50/50">
+            <div className="flex-1 flex items-center justify-center bg-slate-50/50 p-4">
                <ImageUploader onUpload={handleImageUploaded} />
             </div>
           ) : viewMode === 'image' ? (
@@ -225,7 +225,7 @@ function App() {
       </div>
       
       {/* Chat Panel */}
-      <div className="w-96 shrink-0 h-full border-l border-slate-200 bg-white shadow-xl z-10 flex flex-col">
+      <div className="w-full lg:w-96 shrink-0 h-[45vh] lg:h-full border-t lg:border-t-0 lg:border-l border-slate-200 bg-white shadow-xl z-10 flex flex-col">
         {imageUrl ? (
           <ChatPanel messages={messages} onSendMessage={handleSendMessage} isAnalyzing={isAnalyzing} />
         ) : (
