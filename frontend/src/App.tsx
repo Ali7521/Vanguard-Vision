@@ -176,7 +176,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen bg-slate-50 font-sans text-slate-800 overflow-hidden">
+    <div className="flex flex-col lg:flex-row min-h-screen lg:h-screen bg-slate-50 font-sans text-slate-800 lg:overflow-hidden">
       {/* Sidebar Toolbar */}
       <div className="w-full lg:w-20 h-auto lg:h-full bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-row lg:flex-col items-center py-2 lg:py-6 px-4 lg:px-0 z-20 shadow-sm shrink-0 overflow-x-auto">
         <div className="text-2xl lg:text-3xl mr-4 lg:mr-0 lg:mb-8 shrink-0">🌍</div>
@@ -184,7 +184,7 @@ function App() {
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 flex-1 lg:flex-none lg:h-full p-4 lg:p-6 flex flex-col min-w-0">
+      <div className="w-full lg:flex-1 h-[60vh] lg:h-full p-4 lg:p-6 flex flex-col min-w-0">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0 mb-4 lg:mb-6 shrink-0">
           <div>
             <h1 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">Vanguard Vision</h1>
@@ -231,7 +231,7 @@ function App() {
       </div>
       
       {/* Chat Panel */}
-      <div className="w-full lg:w-96 flex-1 lg:flex-none lg:h-full border-t lg:border-t-0 lg:border-l border-slate-200 bg-white shadow-xl z-10 flex flex-col">
+      <div className="w-full lg:w-96 h-[60vh] lg:h-full border-t lg:border-t-0 lg:border-l border-slate-200 bg-white shadow-xl z-10 flex flex-col">
         {imageUrl ? (
           <ChatPanel messages={messages} onSendMessage={handleSendMessage} isAnalyzing={isAnalyzing} />
         ) : (
