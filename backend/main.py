@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -81,7 +81,7 @@ def get_gps_coordinates(file_path: str):
     return None
 
 @app.post("/api/upload")
-def upload_image(file: UploadFile = File(...)):
+def upload_image(request: Request, file: UploadFile = File(...)):
     if not file.filename:
         raise HTTPException(status_code=400, detail="No file uploaded")
     
@@ -99,9 +99,11 @@ def upload_image(file: UploadFile = File(...)):
         has_exif = False
         gps = [46.5198, 6.6323] # Lausanne, Switzerland area
         
+    # Dynamically build the URL using the request headers
+    base_url = str(request.base_url).rstrip("/")
     return {
         "image_id": image_id, 
-        "url": f"http://localhost:8765/uploads/{file_name}",
+        "url": f"{base_url}/uploads/{file_name}",
         "location": gps,
         "has_exif": has_exif
     }
