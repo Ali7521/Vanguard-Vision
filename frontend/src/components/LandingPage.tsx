@@ -85,26 +85,26 @@ export default function LandingPage({ onLaunch }: Props) {
               NEXT-GEN GEOSPATIAL INTELLIGENCE
             </div>
             
-            <h1 className="animate-fade-up delay-100 text-6xl md:text-8xl font-black tracking-tighter leading-[1.1] mb-8">
+            <h1 className="animate-fade-up delay-100 text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-[1.1] mb-8">
               ANALYZE THE WORLD <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-500 to-lime-400">
                 WITH AI VISION.
               </span>
             </h1>
             
-            <p className="animate-fade-up delay-200 text-xl text-slate-400 leading-relaxed mb-12 max-w-2xl">
+            <p className="animate-fade-up delay-200 text-base md:text-xl text-slate-400 leading-relaxed mb-12 max-w-2xl">
               Upload satellite imagery and drone footage, and instantly extract actionable data. Zero-shot object detection, interactive chat, and live global mapping — all in one platform.
             </p>
 
             <div className="animate-fade-up delay-300 flex items-center gap-6">
               <button 
                 onClick={() => onLaunch()}
-                className="group px-8 py-4 bg-white text-zinc-950 rounded-full font-bold text-lg transition-all hover:bg-emerald-50 hover:scale-105 flex items-center gap-3"
+                className="group px-6 py-3 md:px-8 md:py-4 bg-white text-zinc-950 rounded-full font-bold text-base md:text-lg transition-all hover:bg-emerald-50 hover:scale-105 flex items-center gap-3"
               >
                 Start Analysis
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <a href="#usecases" className="px-8 py-4 rounded-full font-bold text-lg border border-white/20 hover:bg-white/5 transition-all hidden md:block">
+              <a href="#usecases" className="px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-lg border border-white/20 hover:bg-white/5 transition-all hidden md:block">
                 Explore Use Cases
               </a>
             </div>
@@ -162,7 +162,7 @@ export default function LandingPage({ onLaunch }: Props) {
             <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
               <Database className="w-8 h-8 text-emerald-400" />
             </div>
-            <h3 className="text-2xl font-bold mb-3">15cm HD Analytics</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-3">15cm HD Analytics</h3>
             <p className="text-slate-400 leading-relaxed">Process ultra-high resolution drone and satellite imagery with precision. Instantly locate buildings, vehicles, and extract structural data.</p>
           </div>
           
@@ -170,7 +170,7 @@ export default function LandingPage({ onLaunch }: Props) {
             <div className="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center mb-6 group-hover:bg-green-500/20 transition-colors">
               <Activity className="w-8 h-8 text-green-400" />
             </div>
-            <h3 className="text-2xl font-bold mb-3">Real-time VQA</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-3">Real-time VQA</h3>
             <p className="text-slate-400 leading-relaxed">Chat with your map. Ask natural language questions about your geospatial data and get instant, highlightable answers overlaid on your imagery.</p>
           </div>
           
@@ -178,7 +178,7 @@ export default function LandingPage({ onLaunch }: Props) {
             <div className="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center mb-6 group-hover:bg-green-500/20 transition-colors">
               <Globe className="w-8 h-8 text-green-500" />
             </div>
-            <h3 className="text-2xl font-bold mb-3">Global EXIF Mapping</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-3">Global EXIF Mapping</h3>
             <p className="text-slate-400 leading-relaxed">Seamless integration with Leaflet maps. We automatically extract hidden GPS EXIF data to pinpoint exactly where your footage was taken.</p>
           </div>
         </div>
@@ -186,8 +186,8 @@ export default function LandingPage({ onLaunch }: Props) {
         {/* Use Cases Section */}
         <div className="mt-40 pt-16 border-t border-white/5" id="usecases">
           <div className="text-center mb-16 animate-fade-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Built for Every Industry</h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Built for Every Industry</h2>
+            <p className="text-base md:text-xl text-slate-400 max-w-3xl mx-auto">
               From urban planning to disaster relief, Vanguard Vision provides the intelligence you need.
             </p>
           </div>
@@ -215,8 +215,8 @@ export default function LandingPage({ onLaunch }: Props) {
         {/* Platform Capabilities Section */}
         <div className="mt-40 pt-16 border-t border-white/5" id="capabilities">
           <div className="text-center mb-16 animate-fade-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Interactive Vision-Language Assistant</h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Interactive Vision-Language Assistant</h2>
+            <p className="text-base md:text-xl text-slate-400 max-w-3xl mx-auto">
               Powered by cutting-edge Hugging Face models, running locally for maximum security.
             </p>
           </div>
