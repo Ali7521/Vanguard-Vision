@@ -86,7 +86,10 @@ function App() {
     try {
       const response = await fetch('https://footage-posing-panda.ngrok-free.dev/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
         body: JSON.stringify({ image_id: imageId, question }),
       });
       
@@ -118,7 +121,10 @@ function App() {
     try {
       const response = await fetch('https://footage-posing-panda.ngrok-free.dev/api/analyze', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
         body: JSON.stringify({ image_id: imageId, module, target }),
       });
       

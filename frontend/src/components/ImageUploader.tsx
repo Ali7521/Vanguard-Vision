@@ -18,6 +18,9 @@ export default function ImageUploader({ onUpload }: Props) {
     try {
       const response = await fetch('https://footage-posing-panda.ngrok-free.dev/api/upload', {
         method: 'POST',
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        },
         body: formData,
       });
       const data = await response.json();
