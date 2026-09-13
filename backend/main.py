@@ -136,30 +136,11 @@ def analyze(request: AnalyzeRequest):
 
 @app.post("/api/chat", response_model=ChatResponse)
 def chat(request: ChatRequest):
-    time.sleep(1.5)
+    time.sleep(0.5)
     question_lower = request.question.lower()
     
-    # Router logic
-    keywords = ["building", "vehicle", "car", "truck", "floor", "color", "colour", "human", "person", "people"]
-    if any(k in question_lower for k in keywords):
-        target = "building"
-        if "vehicle" in question_lower or "car" in question_lower or "truck" in question_lower: target = "vehicle"
-        if "human" in question_lower or "person" in question_lower or "people" in question_lower: target = "person"
-        
-        extract_details = "floor" in question_lower or "color" in question_lower or "colour" in question_lower
-        
-        res = run_object_detection(request.image_id, target, extract_details=extract_details)
-        
-        answer = f"I detected {res['count']} {target}s based on your query."
-        if extract_details and res['count'] > 0:
-            answer += " I've also extracted their dominant colors and estimated the number of floors based on structure height. Check the overlay boxes!"
-            
-        return ChatResponse(
-            answer=answer,
-            confidence=0.88,
-            boxes=[BoundingBox(**b) for b in res["boxes"]]
-        )
-    elif "land cover" in question_lower or "segment" in question_lower or "classify" in question_lower or "land" in question_lower:
+    # Route specialized analysis first
+    if "land cover" in question_lower or "segment" in question_lower or "classify" in question_lower or ("land" in question_lower and "cover" in question_lower):
         res = run_land_cover(request.image_id)
         return ChatResponse(
             answer="Here is the land cover segmentation.",
@@ -173,27 +154,34 @@ def chat(request: ChatRequest):
         res = run_spectral_analysis(request.image_id, "ndwi")
         return ChatResponse(answer=res["answer"], confidence=0.95)
     else:
-        # Open vocabulary zero-shot detection
-        stopwords = ["find", "detect", "locate", "where", "are", "the", "a", "an", "all", "any", "is", "show", "me", "how", "many", "color", "colour", "of", "and", "in", "this", "image", "picture", "can", "you", "please", "some", "every", "everything", "thing", "that", "exist", "world", "like"]
+        # Open vocabulary zero-shot detection for EVERYTHING else
+        extract_details = "color" in question_lower or "colour" in question_lower or "floor" in question_lower
+        
+        stopwords = ["find", "detect", "locate", "where", "are", "the", "a", "an", "all", "any", "is", "show", "me", "how", "many", "color", "colour", "of", "and", "in", "this", "image", "picture", "can", "you", "please", "some", "every", "everything", "thing", "that", "exist", "world", "like", "type", "or", "more", "human", "person", "animal"]
+        
         words = [w.strip("?.,!") for w in question_lower.split() if w.strip("?.,!") not in stopwords]
         
         if words:
+            # If they ask "cat dog", the target becomes "cat dog" which OWL-ViT will parse.
+            # Even better, we can just use the exact remaining noun phrase.
             target = " ".join(words)
-            res = run_object_detection(request.image_id, target, extract_details=False)
+            res = run_object_detection(request.image_id, target, extract_details=extract_details)
             
             if res['count'] > 0:
-                answer = f"I detected {res['count']} {target}(s) based on your open-vocabulary query."
+                answer = f"I detected {res['count']} '{target}' based on your query."
+                if extract_details:
+                    answer += " I've also extracted additional details like colors/floors in the overlay."
             else:
-                answer = f"I scanned the image for '{target}' but couldn't find any clear matches with high confidence."
+                answer = f"I scanned the image for '{target}' but couldn't find any matches."
                 
             return ChatResponse(
                 answer=answer,
-                confidence=0.8,
+                confidence=0.85,
                 boxes=[BoundingBox(**b) for b in res["boxes"]]
             )
             
         return ChatResponse(
-            answer="I see various features here. You can ask me to find anything, like 'find aeroplanes' or 'detect animals'.",
+            answer="I'm ready! You can ask me to find anything, like 'find female humans' or 'detect cats'.",
             confidence=0.6
         )
 
