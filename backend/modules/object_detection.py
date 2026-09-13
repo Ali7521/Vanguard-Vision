@@ -63,7 +63,7 @@ def run_object_detection(image_id: str, target_class: str = "all", extract_detai
         candidate_labels = [target_class, target_class + "s", "house" if target_class == "building" else target_class]
         
     detector = get_detector()
-    predictions = detector(image, candidate_labels=candidate_labels, threshold=0.001)
+    predictions = detector(image, candidate_labels=candidate_labels, threshold=0.05)
     
     # Sort by score first
     predictions = sorted(predictions, key=lambda x: x["score"], reverse=True)
@@ -95,11 +95,9 @@ def run_object_detection(image_id: str, target_class: str = "all", extract_detai
                 else:
                     label = f"{color} {label}"
             
-            # Map tiny OWL-ViT zero-shot softmax scores (0.001 - 0.1) into human-readable 50%-99% range
-            import math
             raw_score = p["score"]
-            # log10(raw_score * 1000) maps 0.001->0, 0.01->1, 0.1->2
-            human_confidence = min(0.99, max(0.01, 0.5 + (math.log10(max(raw_score, 0.001)) * 0.2)))
+            # Scale raw OWL-ViT softmax (usually 0.05 - 0.4) to a 50-99% readable range without faking low scores
+            human_confidence = min(0.99, max(0.5, raw_score * 2.5))
             
             boxes.append({
                 "label": label,
