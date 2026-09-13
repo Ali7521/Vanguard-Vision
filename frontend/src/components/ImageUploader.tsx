@@ -16,7 +16,7 @@ export default function ImageUploader({ onUpload }: Props) {
     formData.append('file', file);
 
     try {
-      const response = await fetch('https://commissions-broadway-progress-pick.trycloudflare.com/api/upload', {
+      const response = await fetch('http://localhost:8765/api/upload', {
         method: 'POST',
         body: formData,
       });

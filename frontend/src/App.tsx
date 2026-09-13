@@ -84,7 +84,7 @@ function App() {
     setIsAnalyzing(true);
     
     try {
-      const response = await fetch('https://commissions-broadway-progress-pick.trycloudflare.com/api/chat', {
+      const response = await fetch('http://localhost:8765/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_id: imageId, question }),
@@ -116,7 +116,7 @@ function App() {
     setIsAnalyzing(true);
     
     try {
-      const response = await fetch('https://commissions-broadway-progress-pick.trycloudflare.com/api/analyze', {
+      const response = await fetch('http://localhost:8765/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_id: imageId, module, target }),
