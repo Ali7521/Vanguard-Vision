@@ -184,7 +184,7 @@ function App() {
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 h-1/2 lg:h-full p-4 lg:p-6 flex flex-col min-w-0">
+      <div className="flex-1 flex-1 lg:flex-none lg:h-full p-4 lg:p-6 flex flex-col min-w-0">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0 mb-4 lg:mb-6 shrink-0">
           <div>
             <h1 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">Vanguard Vision</h1>
@@ -231,7 +231,7 @@ function App() {
       </div>
       
       {/* Chat Panel */}
-      <div className="w-full lg:w-96 shrink-0 h-[45vh] lg:h-full border-t lg:border-t-0 lg:border-l border-slate-200 bg-white shadow-xl z-10 flex flex-col">
+      <div className="w-full lg:w-96 flex-1 lg:flex-none lg:h-full border-t lg:border-t-0 lg:border-l border-slate-200 bg-white shadow-xl z-10 flex flex-col">
         {imageUrl ? (
           <ChatPanel messages={messages} onSendMessage={handleSendMessage} isAnalyzing={isAnalyzing} />
         ) : (
