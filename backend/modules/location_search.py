@@ -23,7 +23,23 @@ def search_and_download_satellite(query: str):
         name_parts = [props.get("name"), props.get("city"), props.get("state"), props.get("country")]
         display_name = ", ".join([p for p in name_parts if p])
         
-        # 2. Create a small bounding box (~500m radius)
+        # 2. Fetch live weather data for the coordinates
+        weather_str = ""
+        try:
+            w_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+            w_res = requests.get(w_url, timeout=5)
+            if w_res.status_code == 200:
+                cw = w_res.json().get("current_weather", {})
+                if cw:
+                    temp = cw.get("temperature", "--")
+                    wind = cw.get("windspeed", "--")
+                    weather_str = f" | Live Weather: {temp}°C, Wind: {wind}km/h"
+        except:
+            pass
+            
+        display_name += weather_str
+        
+        # 3. Create a small bounding box (~500m radius)
         offset = 0.003
         min_lon = lon - offset
         max_lon = lon + offset
@@ -31,7 +47,7 @@ def search_and_download_satellite(query: str):
         max_lat = lat + offset
         bbox = f"{min_lon},{min_lat},{max_lon},{max_lat}"
         
-        # 3. Fetch from ArcGIS World Imagery
+        # 4. Fetch from ArcGIS World Imagery
         arcgis_url = f"https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox={bbox}&bboxSR=4326&size=800,800&format=png&f=json"
         r2 = requests.get(arcgis_url, timeout=10)
         if r2.status_code != 200 or "href" not in r2.json():

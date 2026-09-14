@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { UploadCloud, Loader2, Search } from 'lucide-react';
 
 interface Props {
-  onUpload: (id: string, url: string, location?: [number, number], hasExif?: boolean) => void;
+  onUpload: (id: string, url: string, location?: [number, number], hasExif?: boolean, address?: string) => void;
 }
 
 export default function ImageUploader({ onUpload }: Props) {
@@ -28,7 +28,7 @@ export default function ImageUploader({ onUpload }: Props) {
       });
       if (!response.ok) throw new Error('Search failed');
       const data = await response.json();
-      onUpload(data.image_id, data.url, data.location, data.has_exif);
+      onUpload(data.image_id, data.url, data.location, data.has_exif, data.address);
     } catch (err) {
       console.error("Search failed", err);
       alert("Failed to find satellite imagery for that location.");
@@ -51,7 +51,7 @@ export default function ImageUploader({ onUpload }: Props) {
         body: formData,
       });
       const data = await response.json();
-      onUpload(data.image_id, data.url, data.location, data.has_exif);
+      onUpload(data.image_id, data.url, data.location, data.has_exif, data.address);
     } catch (err) {
       console.error("Upload failed", err);
       alert("Failed to upload image. Is the backend running?");

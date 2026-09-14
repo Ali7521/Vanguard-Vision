@@ -51,16 +51,17 @@ function App() {
   // View toggle
   const [viewMode, setViewMode] = useState<'image' | 'map'>('image');
 
-  const handleImageUploaded = (id: string, url: string, location?: [number, number], hasExif?: boolean) => {
+  const handleImageUploaded = (id: string, url: string, location?: [number, number], hasExif?: boolean, address?: string) => {
     setImageId(id);
     setImageUrl(url);
     if (location) setImageLocation(location);
     
     let welcomeMsg = 'Image uploaded successfully. What would you like to know about it?';
-    if (useCase === 'defense') welcomeMsg = 'Secure upload complete. Ready to detect unauthorized vehicles, track personnel, and monitor tactical perimeters.';
-    if (useCase === 'urban') welcomeMsg = 'Urban sector loaded. You can now detect commercial/residential buildings and calculate land cover density.';
-    if (useCase === 'agri') welcomeMsg = 'Field imagery loaded. Try using the NDVI index tool to assess vegetation health.';
-    if (useCase === 'disaster') welcomeMsg = 'Emergency imagery ingested. Priority mode ready to locate damaged structures and coordinate relief.';
+    if (address) welcomeMsg = `Live satellite feed connected for: ${address}. Ready for analysis.`;
+    else if (useCase === 'defense') welcomeMsg = 'Secure upload complete. Ready to detect unauthorized vehicles, track personnel, and monitor tactical perimeters.';
+    else if (useCase === 'urban') welcomeMsg = 'Urban sector loaded. You can now detect commercial/residential buildings and calculate land cover density.';
+    else if (useCase === 'agri') welcomeMsg = 'Field imagery loaded. Try using the NDVI index tool to assess vegetation health.';
+    else if (useCase === 'disaster') welcomeMsg = 'Emergency imagery ingested. Priority mode ready to locate damaged structures and coordinate relief.';
 
     if (hasExif === false) {
       welcomeMsg += "\n\n⚠️ Note: Your image did not contain GPS EXIF metadata, so the map has defaulted to a demo location. Use raw drone JPEGs for accurate global positioning!";
