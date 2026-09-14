@@ -63,14 +63,14 @@ def run_object_detection(image_id: str, target_class: str = "all", extract_detai
         candidate_labels = [target_class, target_class + "s", "house" if target_class == "building" else target_class]
         
     detector = get_detector()
-    predictions = detector(image, candidate_labels=candidate_labels, threshold=0.08)
+    predictions = detector(image, candidate_labels=candidate_labels, threshold=0.01)
     
     # Sort by score first
     predictions = sorted(predictions, key=lambda x: x["score"], reverse=True)
     
     # Apply Non-Maximum Suppression (NMS) to remove overlapping duplicates
     from modules.nms import apply_nms
-    predictions = apply_nms(predictions, iou_threshold=0.2)
+    predictions = apply_nms(predictions, iou_threshold=0.15)
     
     threshold = 0.08 # Strict threshold to avoid fake noise
     boxes = []
