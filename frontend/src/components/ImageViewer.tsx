@@ -11,6 +11,35 @@ export default function ImageViewer({ imageUrl, boxes, polygons = [] }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0, x: 0, y: 0 });
+  const [secureImageUrl, setSecureImageUrl] = useState<string>('');
+
+  useEffect(() => {
+    if (!imageUrl) return;
+    
+    const fetchImageSecurely = async () => {
+      try {
+        const response = await fetch(imageUrl, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true'
+          }
+        });
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        setSecureImageUrl(objectUrl);
+      } catch (err) {
+        console.error("Failed to fetch image securely", err);
+        setSecureImageUrl(imageUrl); // Fallback
+      }
+    };
+    
+    fetchImageSecurely();
+    
+    return () => {
+      if (secureImageUrl && secureImageUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(secureImageUrl);
+      }
+    };
+  }, [imageUrl]);
 
   const updateDimensions = () => {
     if (imgRef.current && containerRef.current) {
@@ -45,7 +74,7 @@ export default function ImageViewer({ imageUrl, boxes, polygons = [] }: Props) {
     <div className="w-full h-full flex items-center justify-center relative bg-gray-900 overflow-hidden" ref={containerRef}>
       <img 
         ref={imgRef}
-        src={imageUrl} 
+        src={secureImageUrl} 
         alt="Satellite view" 
         className="max-w-full max-h-full object-contain"
         onLoad={updateDimensions}
