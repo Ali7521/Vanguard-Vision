@@ -25,7 +25,14 @@ app.add_middleware(
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+from fastapi.responses import FileResponse
+
+@app.get("/uploads/{filename}")
+def get_upload(filename: str):
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="Not found")
+    return FileResponse(file_path)
 
 class ChatRequest(BaseModel):
     image_id: str
@@ -100,7 +107,7 @@ def upload_image(request: Request, file: UploadFile = File(...)):
         gps = [46.5198, 6.6323] # Lausanne, Switzerland area
         
     # Dynamically build the URL using the request headers
-    base_url = str(request.base_url).rstrip("/")
+    base_url = "https://footage-posing-panda.ngrok-free.dev"
     return {
         "image_id": image_id, 
         "url": f"{base_url}/uploads/{file_name}",
@@ -119,7 +126,7 @@ def search_location(request: Request, body: SearchRequest):
     if not result:
         raise HTTPException(status_code=404, detail="Location not found or image unavailable")
         
-    base_url = str(request.base_url).rstrip("/")
+    base_url = "https://footage-posing-panda.ngrok-free.dev"
     return {
         "image_id": result["image_id"],
         "url": f"{base_url}/uploads/{result['file_name']}",
