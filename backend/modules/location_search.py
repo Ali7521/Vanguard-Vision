@@ -9,7 +9,7 @@ def search_and_download_satellite(query: str):
     geocode_url = f"https://photon.komoot.io/api/?q={query}&limit=1"
     
     try:
-        r = requests.get(geocode_url, timeout=10)
+        r = requests.get(geocode_url, headers={"User-Agent": "VanguardVision/1.0"}, timeout=10)
         if r.status_code != 200: return None
         
         features = r.json().get("features", [])
