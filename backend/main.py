@@ -108,6 +108,25 @@ def upload_image(request: Request, file: UploadFile = File(...)):
         "has_exif": has_exif
     }
 
+class SearchRequest(BaseModel):
+    query: str
+
+@app.post("/api/search")
+def search_location(request: Request, body: SearchRequest):
+    from modules.location_search import search_and_download_satellite
+    
+    result = search_and_download_satellite(body.query)
+    if not result:
+        raise HTTPException(status_code=404, detail="Location not found or image unavailable")
+        
+    base_url = str(request.base_url).rstrip("/")
+    return {
+        "image_id": result["image_id"],
+        "url": f"{base_url}/uploads/{result['file_name']}",
+        "location": result["gps"],
+        "has_exif": True
+    }
+
 @app.post("/api/analyze", response_model=ChatResponse)
 def analyze(request: AnalyzeRequest):
     if request.module == "object_detection":
