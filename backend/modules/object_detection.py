@@ -72,7 +72,7 @@ def run_object_detection(image_id: str, target_class: str = "all", extract_detai
     from modules.nms import apply_nms
     predictions = apply_nms(predictions, iou_threshold=0.15)
     
-    threshold = 0.08 # Strict threshold to avoid fake noise
+    threshold = 0.02
     boxes = []
     
     for p in predictions:
