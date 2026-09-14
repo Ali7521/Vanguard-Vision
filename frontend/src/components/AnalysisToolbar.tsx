@@ -44,7 +44,7 @@ export default function AnalysisToolbar({ onAction, disabled }: Props) {
   ];
 
   return (
-    <div className="flex flex-row lg:flex-col gap-2 lg:gap-4 w-full px-2 lg:px-0">
+    <div className="flex flex-row lg:flex-col gap-2 lg:gap-4 w-full px-2 lg:px-0 overflow-x-auto">
       {tools.map(tool => (
         <button
           key={tool.label}
