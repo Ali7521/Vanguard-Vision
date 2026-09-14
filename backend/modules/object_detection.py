@@ -91,13 +91,19 @@ def run_object_detection(image_id: str, target_class: str = "all", extract_detai
             
             if extract_details and image_cv is not None:
                 color = get_dominant_color(image_cv, [box["xmin"], box["ymin"], box["xmax"], box["ymax"]])
-                if "building" in target_class.lower():
-                    # estimate floors based on relative height
-                    pixel_height = box["ymax"] - box["ymin"]
-                    floors = max(1, int(pixel_height / 30)) # heuristic: 30 pixels per floor
-                    label = f"{color} {label} ({floors} Fl)"
+                
+                # Estimate real-world size (Assumes ArcGIS 800px image covers ~600m, so 0.75m/pixel)
+                pixel_w = box["xmax"] - box["xmin"]
+                pixel_h = box["ymax"] - box["ymin"]
+                area_sqm = int((pixel_w * 0.75) * (pixel_h * 0.75))
+                
+                if "building" in target_class.lower() or "house" in target_class.lower():
+                    floors = max(1, int(pixel_h / 30))
+                    label = f"{color} {label} ({floors} Fl, {area_sqm}m²)"
+                elif "vehicle" in target_class.lower() or "car" in target_class.lower():
+                    label = f"{color} {label} (Size: {area_sqm}m²)"
                 else:
-                    label = f"{color} {label}"
+                    label = f"{color} {label} (Area: {area_sqm}m²)"
             
             raw_score = p["score"]
             # Scale raw OWL-ViT softmax (usually 0.05 - 0.4) to a 50-99% readable range without faking low scores

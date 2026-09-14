@@ -46,7 +46,7 @@ def search_and_download_satellite(query: str):
         return {
             "image_id": image_id,
             "file_name": file_name,
-            "gps": [lat, lon]
+            "gps": [lat, lon], "address": data.get("display_name", "")
         }
         
     return None

@@ -124,7 +124,7 @@ def search_location(request: Request, body: SearchRequest):
         "image_id": result["image_id"],
         "url": f"{base_url}/uploads/{result['file_name']}",
         "location": result["gps"],
-        "has_exif": True
+        "has_exif": True, "address": result.get("address", "")
     }
 
 @app.post("/api/analyze", response_model=ChatResponse)
@@ -174,7 +174,7 @@ def chat(request: ChatRequest):
         return ChatResponse(answer=res["answer"], confidence=0.95)
     else:
         # Open vocabulary zero-shot detection for EVERYTHING else
-        extract_details = "color" in question_lower or "colour" in question_lower or "floor" in question_lower
+        extract_details = True
         
         stopwords = ["find", "detect", "locate", "where", "are", "the", "a", "an", "all", "any", "is", "show", "me", "how", "many", "color", "colour", "of", "and", "in", "this", "image", "picture", "can", "you", "please", "some", "every", "everything", "thing", "that", "exist", "world", "like", "type", "or", "more", "human", "person", "animal"]
         
