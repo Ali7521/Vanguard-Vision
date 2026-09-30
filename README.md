@@ -28,7 +28,7 @@ The system is built on a modern, decoupled architecture connecting a React front
 
 ---
 
-## 💡 Why is this Useful? (Real World Applications)
+## 💡 Why is this Useful? (Real world Applications)
 
 Traditional object detection requires training rigid models to find specific things (e.g., a model that *only* knows how to find cars). Vanguard Vision uses **Open-Vocabulary** models, meaning it can find *anything* on the fly. This makes it incredibly versatile across multiple industries:
 
